@@ -21,10 +21,13 @@ def choicePath(loggedIn, username):
                 break
             elif value == "NF!":
                 print("Credential not found")
+                menu(loggedIn)
+            elif value == "back-to-login":
+                menu(loggedIn)
             else:
                 username = value
                 loggedIn = True
-                print(f"Autheticated! Hello {username}!")
+                print(f"\033[32m   Authenticated! Hello, {username}!   \033[0m")
                 menu(loggedIn)
 
 def viewUserCart(username):
@@ -67,8 +70,9 @@ def cart_main(choice, loggedIn, username):
         item = input("Enter item: ")
         cart = open(f"cart_{username}.txt", "a")
         cart.write(f"{item}\n")
-        print(f"\033[32m   Item: \"{item}\" successfully added.   \033[0m")
-        cart.close() # ! NOT SURE
+        print(f"\033[32m\n   Item: \"{item}\" Successfully Added.  \033[0m")
+        print(f"\033[32m       Enter '1' to view again   \n\033[0m")
+        cart.close()
         menu(loggedIn)
 
     elif choice == '3':
@@ -81,8 +85,8 @@ def cart_main(choice, loggedIn, username):
             cart = open(f"cart_{username}.txt", "w") # ? overwrite
             for i in items:
                 cart.write(i)
-            print("done")
-            print("DEBUG: new array: ", items)
+        print(f"\033[32m\n   Successfully Removed!   \033[0m")
+        print(f"\033[32m  Enter '1' to view again   \n\033[0m")
         menu(loggedIn)
 
     elif choice == 'exit':
@@ -104,31 +108,21 @@ def auth_main(choice):
             
         return "NF!"
         
-
     elif choice == '2':
-        item = input("Enter item: ")
-        cart = open(f"cart_{username}.txt", "a")
-        cart.write(f"{item}\n")
-        print(f"\033[32m   Item: \"{item}\" successfully added.   \033[0m")
-        cart.close() # ! NOT SURE
-        menu()
-
-    elif choice == '3':
-        users = open("users.txt", "r")
-        usersString = users.read()
-        usersList = usersString.split()
-        
-        for i in usersList:
-            print(i)
-            
-
-
-
-
+        users = open("users.txt", "a")
+        username = input("Username: ")
+        password = input("Password: ")
+        usersString = users.write(f"{username},{password} ")
+        print(f"\033[32m\n       Successfully Registered!   \033[0m")
+        print(f"\033[32m\n  You can now Log In below (option 1)!   \033[0m")
+        return 'back-to-login'
+    
     elif choice == 'exit':
-        return "exit"
+        return 'exit'
+    
     else:
-        print("Invalid input")        
+        print("Invalid input")  
+        return "back-to-login"      
 
 def menu(loggedIn):
     if (loggedIn):
