@@ -7,6 +7,26 @@ def title():
    ||===========================||
 """)
 
+def viewUserCart():
+    cart = open(f"cart_{username}.txt", "r")
+    print("\033[33m|--------- Your Cart ---------|\033[0m")
+    cartReadlines = cart.readlines()
+
+    ice = 1
+    try:
+        if (cartReadlines[0]):
+            pass
+    except:
+        print("\033[33m|       No cart item yet      |\033[0m")
+        print("\033[33m|-----------------------------|\033[0m")
+        return "no item"
+    for i in cartReadlines:
+        slicedString = i[0:len(i) - 1]
+        print(f"""\033[33m         {ice}. {slicedString}\033[0m""")
+        ice = ice + 1
+    print("\033[33m|-----------------------------|\033[0m")
+    cart.close() # ! NOT SURE    
+
 def createUserFile(username):
     try:
         open(f"cart_{username}.txt", "x")
@@ -18,22 +38,7 @@ def createUserFile(username):
 def cart_main(choice):
     createUserFile(username) # ? makes user has cart file
     if choice == '1':
-        cart = open(f"cart_{username}.txt", "r")
-        print("\033[33m|--------- Your Cart ---------|\033[0m")
-        cartReadlines = cart.readlines()
-
-        ice = 1
-        try:
-            if (cartReadlines[0]):
-                pass
-        except:
-            print("\033[33m|       No cart item yet      |\033[0m")
-        for i in cartReadlines:
-            slicedString = i[0:len(i) - 1]
-            print(f"""\033[33m         {ice}. {slicedString}\033[0m""")
-            ice = ice + 1
-        print("\033[33m|-----------------------------|\033[0m")
-        cart.close() # ! NOT SURE
+        viewUserCart()
 
     elif choice == '2':
         item = input("Enter item: ")
@@ -42,24 +47,10 @@ def cart_main(choice):
         print(f"\033[32m   Item: \"{item}\" successfully added.   \033[0m")
         cart.close() # ! NOT SURE
     elif choice == '3':
-        cart = open(f"cart_{username}.txt", "r")
-        print("\033[33m|--------- Your Cart ---------|\033[0m")
-        cartReadlines = cart.readlines()
+       viewUserCart()
 
-        ice = 1
-        try:
-            if (cartReadlines[0]):
-                pass
-        except:
-            print("|       No cart item yet      |")
-        for i in cartReadlines:
-            slicedString = i[0:len(i) - 1]
-            print(f"""         {ice}. {slicedString}""")
-            ice = ice + 1
-        print("|-----------------------------|")
-        cart.close() # ! NOT SURE
     elif choice == 'exit':
-        print('Exit point here')
+        print("Exit point")
     else:
         print("Invalid input")
 
