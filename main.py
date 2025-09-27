@@ -19,7 +19,7 @@ def cart_main(choice):
     createUserFile(username) # ? makes user has cart file
     if choice == '1':
         cart = open(f"cart_{username}.txt", "r")
-        print("|--------- Your Cart ---------|")
+        print("\033[33m|--------- Your Cart ---------|\033[0m")
         cartReadlines = cart.readlines()
 
         ice = 1
@@ -27,12 +27,12 @@ def cart_main(choice):
             if (cartReadlines[0]):
                 pass
         except:
-            print("|       No cart item yet      |")
+            print("\033[33m|       No cart item yet      |\033[0m")
         for i in cartReadlines:
             slicedString = i[0:len(i) - 1]
-            print(f"""         {ice}. {slicedString}""")
+            print(f"""\033[33m         {ice}. {slicedString}\033[0m""")
             ice = ice + 1
-        print("|-----------------------------|")
+        print("\033[33m|-----------------------------|\033[0m")
         cart.close() # ! NOT SURE
 
     elif choice == '2':
@@ -43,7 +43,7 @@ def cart_main(choice):
         cart.close() # ! NOT SURE
     elif choice == '3':
         cart = open(f"cart_{username}.txt", "r")
-        print("|--------- Your Cart ---------|")
+        print("\033[33m|--------- Your Cart ---------|\033[0m")
         cartReadlines = cart.readlines()
 
         ice = 1
