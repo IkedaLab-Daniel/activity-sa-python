@@ -13,7 +13,7 @@ Instructions:
 
 Cart Operations:
 Once logged in, the user should be able to interact with their cart using the following operations:
-    1. View Cart: Display all the items currently in the user's cart.
+    GOOOOODDDDDD 1. View Cart: Display all the items currently in the user's cart.
         - The cart data should be stored in a file named cart_<username>.txt, where <username> is the user’s username.
         - If the cart is empty, inform the user that the cart is empty.
 

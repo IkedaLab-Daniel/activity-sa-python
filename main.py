@@ -11,7 +11,6 @@ def createUserFile(username):
         pass
 
 def cart_main(choice):
-    print('cart main')
     createUserFile(username) # ? makes user has cart file
     if choice == '1':
         cart = open(f"cart_{username}.txt", "r")
@@ -29,9 +28,13 @@ def cart_main(choice):
             print(f"""         {ice}. {slicedString}""")
             ice = ice + 1
         print("|-----------------------------|")
+        cart.close() # ! NOT SURE
 
     elif choice == '2':
-        pass
+        item = input("Enter item: ")
+        cart = open(f"cart_{username}.txt", "a")
+        cart.write(f"{item}\n")
+        print(f"   Item: \"{item}\" successfully added.   ")
     elif choice == '3':
         pass
     elif choice == 'exit':
