@@ -19,9 +19,9 @@ Once logged in, the user should be able to interact with their cart using the fo
 
     GOOOOODDDD 2. Add Item to Cart: Allow the user to add an item to their cart. The item should be appended to the user's cart file.
 
-    3. Remove Item from Cart: Allow the user to remove an item from their cart. If the item exists in the cart, it should be deleted from the cart file.
+    GOOOODDDD 3. Remove Item from Cart: Allow the user to remove an item from their cart. If the item exists in the cart, it should be deleted from the cart file.
 
-    Exit: Allow the user to exit the program and save the cart's state.
+    GOOOOOODDD. Exit: Allow the user to exit the program and save the cart's state.
 
 File Handling:
 
