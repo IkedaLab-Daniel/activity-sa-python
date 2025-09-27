@@ -26,6 +26,7 @@ def viewUserCart():
         ice = ice + 1
     print("\033[33m|-----------------------------|\033[0m")
     cart.close() # ! NOT SURE    
+    return cartReadlines
 
 def createUserFile(username):
     try:
@@ -47,7 +48,18 @@ def cart_main(choice):
         print(f"\033[32m   Item: \"{item}\" successfully added.   \033[0m")
         cart.close() # ! NOT SURE
     elif choice == '3':
-       viewUserCart()
+        items = viewUserCart()
+        if (items == "no item"):
+           print(".  Add item first before removing an item.   ")
+        else:
+            toRemove = int(input("Which to delete? Enter number: ")) # ! need validation
+            items.pop(toRemove - 1)
+            cart = open(f"cart_{username}.txt", "w") # ? overwrite
+            for i in items:
+                cart.write(i)
+            print("done")
+            print("DEBUG: new array: ", items)
+           
 
     elif choice == 'exit':
         print("Exit point")
