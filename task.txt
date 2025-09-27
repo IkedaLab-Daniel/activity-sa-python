@@ -17,7 +17,7 @@ Once logged in, the user should be able to interact with their cart using the fo
         - The cart data should be stored in a file named cart_<username>.txt, where <username> is the user’s username.
         - If the cart is empty, inform the user that the cart is empty.
 
-    2. Add Item to Cart: Allow the user to add an item to their cart. The item should be appended to the user's cart file.
+    GOOOOODDDD 2. Add Item to Cart: Allow the user to add an item to their cart. The item should be appended to the user's cart file.
 
     3. Remove Item from Cart: Allow the user to remove an item from their cart. If the item exists in the cart, it should be deleted from the cart file.
 

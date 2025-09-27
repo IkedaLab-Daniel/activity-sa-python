@@ -1,6 +1,11 @@
-
 loggedIn = True
 username = 'ice'
+def title(): 
+    print(""" 
+   ||===========================||
+   ||    Cart Tracker System    ||
+   ||===========================||
+""")
 
 def createUserFile(username):
     try:
@@ -34,23 +39,34 @@ def cart_main(choice):
         item = input("Enter item: ")
         cart = open(f"cart_{username}.txt", "a")
         cart.write(f"{item}\n")
-        print(f"   Item: \"{item}\" successfully added.   ")
+        print(f"\033[32m   Item: \"{item}\" successfully added.   \033[0m")
+        cart.close() # ! NOT SURE
     elif choice == '3':
-        pass
+        cart = open(f"cart_{username}.txt", "r")
+        print("|--------- Your Cart ---------|")
+        cartReadlines = cart.readlines()
+
+        ice = 1
+        try:
+            if (cartReadlines[0]):
+                pass
+        except:
+            print("|       No cart item yet      |")
+        for i in cartReadlines:
+            slicedString = i[0:len(i) - 1]
+            print(f"""         {ice}. {slicedString}""")
+            ice = ice + 1
+        print("|-----------------------------|")
+        cart.close() # ! NOT SURE
     elif choice == 'exit':
         print('Exit point here')
     else:
-        print('Invalid input')
+        print("Invalid input")
 
 def auth_main():
     print('auth main')
 
 def menu():
-    print(""" 
-   ||===========================||
-   ||    Cart Tracker System    ||
-   ||===========================||
-""")
     if (loggedIn):
         print(""" 
     |---------------------------|          
@@ -75,7 +91,7 @@ def menu():
     |---------------------------|
 """)
 
-    choice = input("Enter your choice: ")
+    choice = input("MENU: Enter your choice: ")
     if (loggedIn):
         cart_main(choice)
     else:
@@ -83,4 +99,6 @@ def menu():
 
 
 # > MAIN <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<,
-menu()
+title()
+while True:
+    menu()
