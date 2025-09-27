@@ -1,11 +1,22 @@
 loggedIn = True
 username = 'ice'
+
 def title(): 
     print(""" 
    ||===========================||
    ||    Cart Tracker System    ||
    ||===========================||
 """)
+    
+def choicePath():
+    while True:
+        choice = input("MENU: Enter your choice: ")
+        if (loggedIn):
+            value = cart_main(choice)
+            if value == "exit":
+                break
+        else:
+            auth_main(choice)
 
 def viewUserCart():
     cart = open(f"cart_{username}.txt", "r")
@@ -40,6 +51,7 @@ def cart_main(choice):
     createUserFile(username) # ? makes user has cart file
     if choice == '1':
         viewUserCart()
+        menu()
 
     elif choice == '2':
         item = input("Enter item: ")
@@ -47,6 +59,8 @@ def cart_main(choice):
         cart.write(f"{item}\n")
         print(f"\033[32m   Item: \"{item}\" successfully added.   \033[0m")
         cart.close() # ! NOT SURE
+        menu()
+
     elif choice == '3':
         items = viewUserCart()
         if (items == "no item"):
@@ -59,12 +73,12 @@ def cart_main(choice):
                 cart.write(i)
             print("done")
             print("DEBUG: new array: ", items)
-           
+        menu()
 
     elif choice == 'exit':
-        print("Exit point")
+        return "exit"
     else:
-        print("Invalid input")
+        print("Invalid input")        
 
 def auth_main():
     print('auth main')
@@ -94,14 +108,7 @@ def menu():
     |---------------------------|
 """)
 
-    choice = input("MENU: Enter your choice: ")
-    if (loggedIn):
-        cart_main(choice)
-    else:
-        auth_main(choice)
-
-
 # > MAIN <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<,
 title()
-while True:
-    menu()
+menu()
+choicePath()
