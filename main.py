@@ -1,5 +1,5 @@
-loggedIn = True
-username = 'ice'
+loggedIn = False
+username = ''
 
 def title(): 
     print(""" 
@@ -8,19 +8,32 @@ def title():
    ||===========================||
 """)
     
-def choicePath():
+def choicePath(loggedIn, username):
     while True:
         choice = input("MENU: Enter your choice: ")
-        if (loggedIn):
-            value = cart_main(choice)
+        if (loggedIn == True):
+            value = cart_main(choice, loggedIn, username)
             if value == "exit":
                 break
         else:
-            auth_main(choice)
+            value = auth_main(choice)
+            if value == "exit":
+                break
+            elif value == "NF!":
+                print("Credential not found")
+                menu(loggedIn)
+            elif value == "back-to-login":
+                menu(loggedIn)
+            else:
+                username = value
+                loggedIn = True
+                print(f"\033[32m   Authenticated! Hello, {username}!   \033[0m")
+                menu(loggedIn)
 
-def viewUserCart():
+def viewUserCart(username):
     cart = open(f"cart_{username}.txt", "r")
     print("\033[33m|--------- Your Cart ---------|\033[0m")
+
     cartReadlines = cart.readlines()
 
     ice = 1
@@ -47,22 +60,23 @@ def createUserFile(username):
         # ? proceed to # > 2
         pass
 
-def cart_main(choice):
+def cart_main(choice, loggedIn, username):
     createUserFile(username) # ? makes user has cart file
     if choice == '1':
-        viewUserCart()
-        menu()
+        viewUserCart(username)
+        menu(loggedIn)
 
     elif choice == '2':
         item = input("Enter item: ")
         cart = open(f"cart_{username}.txt", "a")
         cart.write(f"{item}\n")
-        print(f"\033[32m   Item: \"{item}\" successfully added.   \033[0m")
-        cart.close() # ! NOT SURE
-        menu()
+        print(f"\033[32m\n   Item: \"{item}\" Successfully Added.  \033[0m")
+        print(f"\033[32m       Enter '1' to view again   \n\033[0m")
+        cart.close()
+        menu(loggedIn)
 
     elif choice == '3':
-        items = viewUserCart()
+        items = viewUserCart(username)
         if (items == "no item"):
            print(".  Add item first before removing an item.   ")
         else:
@@ -71,19 +85,46 @@ def cart_main(choice):
             cart = open(f"cart_{username}.txt", "w") # ? overwrite
             for i in items:
                 cart.write(i)
-            print("done")
-            print("DEBUG: new array: ", items)
-        menu()
+        print(f"\033[32m\n   Successfully Removed!   \033[0m")
+        print(f"\033[32m  Enter '1' to view again   \n\033[0m")
+        menu(loggedIn)
 
     elif choice == 'exit':
         return "exit"
     else:
         print("Invalid input")        
 
-def auth_main():
-    print('auth main')
+def auth_main(choice):
+    if choice == '1':
+        users = open("users.txt", "r")
+        username = input("Username: ")
+        password = input("Password: ")
+        usersString = users.read()
+        usersList = usersString.split()
+        
+        for i in usersList:
+            if (f"{username},{password}") in i:
+                return username
+            
+        return "NF!"
+        
+    elif choice == '2':
+        users = open("users.txt", "a")
+        username = input("Username: ")
+        password = input("Password: ")
+        usersString = users.write(f"{username},{password} ")
+        print(f"\033[32m\n       Successfully Registered!   \033[0m")
+        print(f"\033[32m\n  You can now Log In below (option 1)!   \033[0m")
+        return 'back-to-login'
+    
+    elif choice == 'exit':
+        return 'exit'
+    
+    else:
+        print("Invalid input")  
+        return "back-to-login"      
 
-def menu():
+def menu(loggedIn):
     if (loggedIn):
         print(""" 
     |---------------------------|          
@@ -110,5 +151,5 @@ def menu():
 
 # > MAIN <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<,
 title()
-menu()
-choicePath()
+menu(loggedIn)
+choicePath(loggedIn, username)
