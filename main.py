@@ -1,5 +1,5 @@
-loggedIn = True
-username = 'ice'
+loggedIn = False
+username = ''
 
 def title(): 
     print(""" 
@@ -8,15 +8,23 @@ def title():
    ||===========================||
 """)
     
-def choicePath():
+def choicePath(loggedIn, username):
     while True:
         choice = input("MENU: Enter your choice: ")
-        if (loggedIn):
+        if (loggedIn == True):
             value = cart_main(choice)
             if value == "exit":
                 break
         else:
-            auth_main(choice)
+            value = auth_main(choice)
+            if value == "exit":
+                break
+            elif value == "NF!":
+                print("Credential not found")
+            else:
+                username = value
+                loggedIn = True
+                print(f"Autheticated! Hello {username}!")
 
 def viewUserCart():
     cart = open(f"cart_{username}.txt", "r")
@@ -80,10 +88,47 @@ def cart_main(choice):
     else:
         print("Invalid input")        
 
-def auth_main():
-    print('auth main')
+def auth_main(choice):
+    if choice == '1':
+        users = open("users.txt", "r")
+        username = input("Username: ")
+        password = input("Password: ")
+        usersString = users.read()
+        usersList = usersString.split()
+        
+        for i in usersList:
+            if (f"{username},{password}") in i:
+                return username
+            
+        return "NF!"
+        
 
-def menu():
+    elif choice == '2':
+        item = input("Enter item: ")
+        cart = open(f"cart_{username}.txt", "a")
+        cart.write(f"{item}\n")
+        print(f"\033[32m   Item: \"{item}\" successfully added.   \033[0m")
+        cart.close() # ! NOT SURE
+        menu()
+
+    elif choice == '3':
+        users = open("users.txt", "r")
+        usersString = users.read()
+        usersList = usersString.split()
+        
+        for i in usersList:
+            print(i)
+            
+
+
+
+
+    elif choice == 'exit':
+        return "exit"
+    else:
+        print("Invalid input")        
+
+def menu(loggedIn):
     if (loggedIn):
         print(""" 
     |---------------------------|          
@@ -110,5 +155,5 @@ def menu():
 
 # > MAIN <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<,
 title()
-menu()
-choicePath()
+menu(loggedIn)
+choicePath(loggedIn, username)
