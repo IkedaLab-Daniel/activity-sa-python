@@ -1,0 +1,29 @@
+Instructions
+Objective:
+Create a Cart Tracker System where users can log in, view their cart, add items, and remove items. The data (user credentials and cart items) will be saved to files, allowing the system to persist between sessions.
+
+Instructions:
+1. User Login:
+
+    Prompt the user to enter their username and password.
+    Authenticate the user by checking the users.txt file for a matching username and password.
+        - The users.txt file will store user credentials in the format:
+        username1,password1 username2,password2
+    If the credentials are correct, the user will be granted access to their cart. If incorrect, display an error message and prompt the user to re-enter their credentials or exit.
+
+Cart Operations:
+Once logged in, the user should be able to interact with their cart using the following operations:
+    1. View Cart: Display all the items currently in the user's cart.
+        - The cart data should be stored in a file named cart_<username>.txt, where <username> is the user’s username.
+        - If the cart is empty, inform the user that the cart is empty.
+
+    2. Add Item to Cart: Allow the user to add an item to their cart. The item should be appended to the user's cart file.
+
+    3. Remove Item from Cart: Allow the user to remove an item from their cart. If the item exists in the cart, it should be deleted from the cart file.
+
+    Exit: Allow the user to exit the program and save the cart's state.
+
+File Handling:
+
+    users.txt: Store usernames and passwords for authentication.
+    cart_<username>.txt: Store the list of items in each user’s cart.
