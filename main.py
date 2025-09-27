@@ -12,7 +12,7 @@ def choicePath(loggedIn, username):
     while True:
         choice = input("MENU: Enter your choice: ")
         if (loggedIn == True):
-            value = cart_main(choice)
+            value = cart_main(choice, loggedIn, username)
             if value == "exit":
                 break
         else:
@@ -25,10 +25,12 @@ def choicePath(loggedIn, username):
                 username = value
                 loggedIn = True
                 print(f"Autheticated! Hello {username}!")
+                menu(loggedIn)
 
-def viewUserCart():
+def viewUserCart(username):
     cart = open(f"cart_{username}.txt", "r")
     print("\033[33m|--------- Your Cart ---------|\033[0m")
+
     cartReadlines = cart.readlines()
 
     ice = 1
@@ -55,11 +57,11 @@ def createUserFile(username):
         # ? proceed to # > 2
         pass
 
-def cart_main(choice):
+def cart_main(choice, loggedIn, username):
     createUserFile(username) # ? makes user has cart file
     if choice == '1':
-        viewUserCart()
-        menu()
+        viewUserCart(username)
+        menu(loggedIn)
 
     elif choice == '2':
         item = input("Enter item: ")
@@ -67,10 +69,10 @@ def cart_main(choice):
         cart.write(f"{item}\n")
         print(f"\033[32m   Item: \"{item}\" successfully added.   \033[0m")
         cart.close() # ! NOT SURE
-        menu()
+        menu(loggedIn)
 
     elif choice == '3':
-        items = viewUserCart()
+        items = viewUserCart(username)
         if (items == "no item"):
            print(".  Add item first before removing an item.   ")
         else:
@@ -81,7 +83,7 @@ def cart_main(choice):
                 cart.write(i)
             print("done")
             print("DEBUG: new array: ", items)
-        menu()
+        menu(loggedIn)
 
     elif choice == 'exit':
         return "exit"
