@@ -1,11 +1,30 @@
 
-loggedIn = False
-choice = ''
+loggedIn = True
+username = 'ice'
 
-def cart_main():
-    print('cart main')
-    if choice == '1':
+def createUserFile(username):
+    try:
+        open(f"cart_{username}.txt", "x")
+    except:
+        # ? if it throws error, it means that fiile alredy exist
+        # ? proceed to # > 2
         pass
+
+def cart_main(choice):
+    print('cart main')
+    createUserFile(username) # ? makes user has cart file
+    if choice == '1':
+        cart = open(f"cart_{username}.txt", "r")
+        print("|--------- Your Cart ---------|")
+        cartReadlines = cart.readlines()
+
+        ice = 1
+        for i in cartReadlines:
+            slicedString = i[0:len(i) - 1]
+            print(f"""         {ice}. {slicedString}""")
+            ice = ice + 1
+        print("|------------------------------|")
+
     elif choice == '2':
         pass
     elif choice == '3':
@@ -50,9 +69,9 @@ def menu():
 
     choice = input("Enter your choice: ")
     if (loggedIn):
-        cart_main()
+        cart_main(choice)
     else:
-        auth_main()
+        auth_main(choice)
 
 
 # > MAIN <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<,
