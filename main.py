@@ -19,11 +19,16 @@ def cart_main(choice):
         cartReadlines = cart.readlines()
 
         ice = 1
+        try:
+            if (cartReadlines[0]):
+                pass
+        except:
+            print("|       No cart item yet      |")
         for i in cartReadlines:
             slicedString = i[0:len(i) - 1]
             print(f"""         {ice}. {slicedString}""")
             ice = ice + 1
-        print("|------------------------------|")
+        print("|-----------------------------|")
 
     elif choice == '2':
         pass
