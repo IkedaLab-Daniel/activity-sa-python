@@ -1,1 +1,1 @@
-demouser,demopassword admin,admin ice,ice 
+ice,ice 
